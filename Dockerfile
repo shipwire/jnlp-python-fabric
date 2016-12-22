@@ -4,6 +4,8 @@ MAINTAINER Juan Carlos Tong <juancarlos.tong@shipwire.com>
 
 RUN pip install fabric
 
+RUN apt-get update && apt-get -y install default-jre
+
 #
 # Jenkins Slave
 #
@@ -15,20 +17,20 @@ ARG VERSION=2.62
 
 RUN curl --create-dirs -sSLo /usr/share/jenkins/slave.jar https://repo.jenkins-ci.org/public/org/jenkins-ci/main/remoting/${VERSION}/remoting-${VERSION}.jar \
   && chmod 755 /usr/share/jenkins \
-    && chmod 644 /usr/share/jenkins/slave.jar 
+  && chmod 644 /usr/share/jenkins/slave.jar 
 
 
-    COPY jenkins-slave /usr/local/bin/jenkins-slave
+  COPY jenkins-slave /usr/local/bin/jenkins-slave
 
-    RUN chmod 755 /usr/local/bin/jenkins-slave
+  RUN chmod 755 /usr/local/bin/jenkins-slave
 
-    VOLUME /home/jenkins
-    WORKDIR /home/jenkins
-    USER jenkins
+  VOLUME /home/jenkins
+  WORKDIR /home/jenkins
+  USER jenkins
 
-    RUN echo $PATH
+  RUN echo $PATH
 
-    ENTRYPOINT ["jenkins-slave"]
+  ENTRYPOINT ["jenkins-slave"]
 
 #
 # Purge
