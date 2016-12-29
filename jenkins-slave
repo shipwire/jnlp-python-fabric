@@ -45,5 +45,8 @@ else
 		URL="-url $JENKINS_URL"
 	fi
 
+  wget $JENKINS_URL/jnlpJars/slave.jar
+  mv slave.jar /usr/share/jenkins/slave.jar
+  chmod 644 /usr/share/jenkins/slave.jar
 	exec java $JAVA_OPTS -cp /usr/share/jenkins/slave.jar hudson.remoting.jnlp.Main -headless $TUNNEL $URL "$@"
 fi

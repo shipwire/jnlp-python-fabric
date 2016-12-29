@@ -20,17 +20,17 @@ RUN curl --create-dirs -sSLo /usr/share/jenkins/slave.jar https://repo.jenkins-c
   && chmod 644 /usr/share/jenkins/slave.jar 
 
 
-  COPY jenkins-slave /usr/local/bin/jenkins-slave
+COPY jenkins-slave /usr/local/bin/jenkins-slave
 
-  RUN chmod 755 /usr/local/bin/jenkins-slave
+RUN chmod 755 /usr/local/bin/jenkins-slave
 
-  VOLUME /home/jenkins
-  WORKDIR /home/jenkins
-  USER jenkins
+VOLUME /home/jenkins
+WORKDIR /home/jenkins
+USER jenkins
 
-  RUN echo $PATH
+RUN echo $PATH
 
-  ENTRYPOINT ["jenkins-slave"]
+ENTRYPOINT ["jenkins-slave"]
 
 #
 # Purge
