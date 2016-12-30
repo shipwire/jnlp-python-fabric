@@ -2,9 +2,7 @@ FROM python:latest
 
 MAINTAINER Juan Carlos Tong <juancarlos.tong@shipwire.com>
 
-RUN pip install fabric
-
-RUN apt-get update && apt-get -y install default-jre
+RUN apt-get update && apt-get -y install default-jre fabric
 
 #
 # Jenkins Slave
