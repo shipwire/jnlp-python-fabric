@@ -4,6 +4,8 @@ MAINTAINER Juan Carlos Tong <juancarlos.tong@shipwire.com>
 
 RUN apt-get update && apt-get -y install default-jre fabric
 
+RUN pip install boto
+
 #
 # Jenkins Slave
 #
@@ -17,19 +19,18 @@ RUN curl --create-dirs -sSLo /usr/share/jenkins/slave.jar https://repo.jenkins-c
   && chmod 755 /usr/share/jenkins \
   && chmod 644 /usr/share/jenkins/slave.jar 
 
-
 COPY jenkins-slave /usr/local/bin/jenkins-slave
 
 RUN chmod 755 /usr/local/bin/jenkins-slave
+
+RUN mkdir -p /home/jenkins/.cache/pip/http
+RUN chown -R jenkins: /home/jenkins/.cache
 
 VOLUME /home/jenkins
 WORKDIR /home/jenkins
 USER jenkins
 
-RUN pip install boto
-
 RUN echo $PATH
-
 
 ENTRYPOINT ["jenkins-slave"]
 
